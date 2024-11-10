@@ -12,7 +12,7 @@ interface ChatMessage {
   link?: string;
 }
 
-interface ChatBotResponse {
+export interface ChatBotResponse {
   response?: ChatMessage; // Ensure this matches the message structure
   chatRoom?: string; // Optional, to handle chat room ID
 }

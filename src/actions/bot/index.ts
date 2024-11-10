@@ -3,6 +3,7 @@ import { client } from '@/lib/prisma'
 import { extractEmailsFromString } from '@/lib/utils'
 import OpenAi from 'openai'
 import { handleAssistantLogic } from './assistantLogic'
+import { ChatBotResponse } from '@/hooks/chatbot/use-chatbot';
 
 const openai = new OpenAi({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
@@ -57,7 +58,7 @@ export const onChatBot = async (
   chat: { role: 'assistant' | 'user'; content: string }[],
   author: 'user',
   message: string
-) => {
+): Promise<ChatBotResponse> => {
   try {
     const chatBot = await client.chatBot.findUnique({
       where: { id },
@@ -214,15 +215,20 @@ export const onChatBot = async (
       );
     }
 
-return response;
-
-  } catch (error) {
-    console.log(error)
     return {
       response: {
         role: 'assistant',
         content: 'I apologize, but I encountered an error. Please try again.',
       }
-    }
+    };
+
+  } catch (error) {
+    console.log(error);
+    return {
+      response: {
+        role: 'assistant',
+        content: 'I apologize, but I encountered an error. Please try again.',
+      }
+    };
   }
 }

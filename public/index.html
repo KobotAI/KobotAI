@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Web Page</title>
+</head>
+<body>
+    <h1>Welcome to My Web Page</h1>
+    <p>This is where your main content goes.</p>
+
+<script>
+      const iframe = document.createElement("iframe");
+      
+      const iframeStyles = (styleString) => {
+        const style = document.createElement('style');
+        style.textContent = styleString;
+        document.head.append(style);
+      }
+      
+      iframeStyles(`
+        .chat-frame {
+          position: fixed;
+          bottom: 5px;
+          right: 5px;
+          border: none;
+        }
+      `);
+      
+      iframe.src = "http://localhost:3000/chatbot"; // URL remains unchanged
+      iframe.classList.add('chat-frame');
+      document.body.appendChild(iframe);
+      
+      window.addEventListener("message", (e) => {
+        if (e.origin !== "http://localhost:3000") return null;
+        let dimensions = JSON.parse(e.data);
+        iframe.width = dimensions.width;
+        iframe.height = dimensions.height;
+        iframe.contentWindow.postMessage("test-code", "http://localhost:3000/"); // Use a unique identifier instead of domain ID
+      });
+</script>
+</body>
+</html>
+  

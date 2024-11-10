@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl= env("DIRECT_URL")
+}
+
+model ChatBot {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  welcomeMessage String?
+  icon           String?
+  background     String?
+  textColor      String?
+  helpdesk       Boolean  @default(false)
+}
+
+model Customer {
+  id       String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email    String?   @unique
+  fname    String?
+  threadId String?
+  chatRoom ChatRoom[]
+}
+
+model ChatRoom {
+  id         String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  live       Boolean       @default(false)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  customer   Customer?     @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  customerId String?       @db.Uuid
+  messages   ChatMessage[]
+
+  @@index([customerId])
+}
+
+model ChatMessage {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  message    String
+  role       Role
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  chatRoom   ChatRoom? @relation(fields: [chatRoomId], references: [id], onDelete: Cascade)
+  chatRoomId String?   @db.Uuid
+  seen       Boolean   @default(false)
+
+  @@index([chatRoomId])
+}
+
+enum Role {
+  user
+  assistant
+}

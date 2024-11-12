@@ -19,7 +19,7 @@ export interface ChatBotResponse {
 }
 
 const upload = new UploadClient({
-  publicKey: process.env.NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY as string,
+  publicKey: process.env.UPLOAD_CARE_PUBLIC_KEY as string,
 });
 
 export const useChatBot = () => {

@@ -5,7 +5,7 @@ import { onRealTimeChat } from '../conversation'
 import { client } from '@/lib/prisma'
 
 const openai = new OpenAi({
-  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY,
 })
 
 const preprocessor = new AdvancedTextPreprocessor()

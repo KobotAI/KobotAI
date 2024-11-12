@@ -6,7 +6,7 @@ import { handleAssistantLogic } from './assistantLogic'
 import { ChatBotResponse } from '@/hooks/chatbot/use-chatbot';
 
 const openai = new OpenAi({
-  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY,
 })
 
 const initialModel = 'gpt-4-mini';

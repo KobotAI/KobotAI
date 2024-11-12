@@ -1,3 +1,4 @@
+'use client';
 import { onChatBot, onGetCurrentChatBot } from '@/actions/bot';
 import { postToParent } from '@/lib/utils';
 import { ChatBotMessageProps, ChatBotMessageSchema } from '@/schemas/conversation.schema';

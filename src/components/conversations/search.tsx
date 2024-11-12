@@ -1,3 +1,4 @@
+'use client';
 import React from 'react'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 

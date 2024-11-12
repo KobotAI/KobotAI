@@ -2,7 +2,6 @@ import React from 'react'
 import { cn, extractUUIDFromString, getMonthName } from '@/lib/utils'
 import { adjustColor } from '@/lib/color'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
-import { User } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 

@@ -1,3 +1,4 @@
+'use client';
 import { ChatBotMessageProps } from '@/schemas/conversation.schema'
 import React, { forwardRef } from 'react'
 import { UseFormRegister } from 'react-hook-form'

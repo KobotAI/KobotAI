@@ -2,6 +2,7 @@
 
 import { client } from '@/lib/prisma'
 import { pusherServer } from '@/lib/utils'
+import { Role } from '@prisma/client'
 
 export const onToggleRealtime = async (id: string, state: boolean) => {
   try {
@@ -48,57 +49,17 @@ export const onGetConversationMode = async (id: string) => {
     console.log(error)
   }
 }
-// DEL
-export const onGetDomainChatRooms = async (id: string) => {
-  try {
-    const domains = await client.domain.findUnique({
-      where: {
-        id,
-      },
-      select: {
-        customer: {
-          select: {
-            email: true,
-            chatRoom: {
-              select: {
-                createdAt: true,
-                id: true,
-                message: {
-                  select: {
-                    message: true,
-                    createdAt: true,
-                    seen: true,
-                  },
-                  orderBy: {
-                    createdAt: 'desc',
-                  },
-                  take: 1,
-                },
-              },
-            },
-          },
-        },
-      },
-    })
-
-    if (domains) {
-      return domains
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
 
 export const onGetChatMessages = async (id: string) => {
   try {
-    const messages = await client.chatRoom.findMany({
+    const messages = await client.chatRoom.findUnique({
       where: {
         id,
       },
       select: {
         id: true,
         live: true,
-        message: {
+        messages: {
           select: {
             id: true,
             role: true,
@@ -125,7 +86,7 @@ export const onGetAllChatRooms = async () => {
   try {
     const chatRooms = await client.chatRoom.findMany({
       include: {
-        message: {
+        messages: {
           select: {
             message: true,
             createdAt: true,
@@ -164,7 +125,7 @@ export const onRealTimeChat = async (
   chatroomId: string,
   message: string,
   id: string,
-  role: 'assistant' | 'user'
+  role: Role
 ) => {
   pusherServer.trigger(chatroomId, 'realtime-mode', {
     chat: {
@@ -178,7 +139,7 @@ export const onRealTimeChat = async (
 export const onOwnerSendMessage = async (
   chatroom: string,
   message: string,
-  role: 'assistant' | 'user'
+  role: Role
 ) => {
   try {
     const chat = await client.chatRoom.update({
@@ -186,7 +147,7 @@ export const onOwnerSendMessage = async (
         id: chatroom,
       },
       data: {
-        message: {
+        messages: {
           create: {
             message,
             role,
@@ -194,7 +155,7 @@ export const onOwnerSendMessage = async (
         },
       },
       select: {
-        message: {
+        messages: {
           select: {
             id: true,
             role: true,

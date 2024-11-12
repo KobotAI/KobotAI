@@ -184,7 +184,7 @@ export const onChatBot = async (
           return {
             response: {
               role: 'assistant',
-              content: chatCompletion.choices[0].message.content,
+              content: chatCompletion.choices[0].message.content ?? 'No response generated.',
             },
             chatRoom: customer.chatRoom[0].id,
           };

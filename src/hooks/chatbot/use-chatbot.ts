@@ -13,8 +13,8 @@ interface ChatMessage {
 }
 
 export interface ChatBotResponse {
-  response?: ChatMessage; // Ensure this matches the message structure
-  chatRoom?: string; // Optional, to handle chat room ID
+  response?: ChatMessage;
+  chatRoom?: string;
 }
 
 const upload = new UploadClient({
@@ -51,7 +51,7 @@ export const useChatBot = () => {
     setCurrentBotId(id);
     const chatbot = await onGetCurrentChatBot(id);
     if (chatbot) {
-      setOnChats(prev => [...prev, { role: 'assistant', content: 'Hi there' }]);
+      setOnChats([{ role: 'assistant', content: 'Hi there' }]);
       setCurrentBot(chatbot);
       setLoading(false);
     }
@@ -67,34 +67,38 @@ export const useChatBot = () => {
   }, []);
 
   const onStartChatting = handleSubmit(async (values) => {
-    if (values.image.length) {
+    if (values.image?.length) {
       const uploaded = await upload.uploadFile(values.image[0]);
-      setOnChats(prev => [...prev, { role: 'user', content: uploaded.uuid }]);
+      const userMessage: ChatMessage = {
+        role: 'user',
+        content: uploaded.uuid,
+      };
+      setOnChats(prev => [...prev, userMessage]);
       setOnAiTyping(true);
 
       const response: ChatBotResponse = await onChatBot(currentBotId!, onChats, 'user', uploaded.uuid);
 
-      if (response) {
+      if (response?.response) {
         setOnAiTyping(false);
-        if (response.response) {
-          setOnChats(prev => [...prev, response.response]);
-        }
+        setOnChats(prev => [...prev, response.response as ChatMessage]);
       }
     }
 
     reset();
 
     if (values.content) {
-      setOnChats(prev => [...prev, { role: 'user', content: values.content }]);
+      const userMessage: ChatMessage = {
+        role: 'user',
+        content: values.content,
+      };
+      setOnChats(prev => [...prev, userMessage]);
       setOnAiTyping(true);
 
       const response: ChatBotResponse = await onChatBot(currentBotId!, onChats, 'user', values.content);
 
-      if (response) {
+      if (response?.response) {
         setOnAiTyping(false);
-        if (response.response) {
-          setOnChats(prev => [...prev, response.response]);
-        }
+        setOnChats(prev => [...prev, response.response as ChatMessage]);
       }
     }
   });

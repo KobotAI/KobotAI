@@ -1,3 +1,4 @@
+
 import {
   onGetChatMessages,
   onGetAllChatRooms,
@@ -47,7 +48,7 @@ export const useConversation = () => {
       if (messages) {
         setChatRoom(id)
         loadMessages(false)
-        setChats(messages[0].message)
+        setChats(messages.messages)
       }
     } catch (error) {
       console.log(error)
@@ -145,7 +146,7 @@ export const useChatWindow = () => {
       reset()
       const message = await onOwnerSendMessage(chatRoom!, values.content, 'assistant')
       if (message) {
-        await onRealTimeChat(chatRoom!, message.message[0].message, message.message[0].id, 'assistant')
+        await onRealTimeChat(chatRoom!, message.messages[0].message, message.messages[0].id, 'assistant')
       }
     } catch (error) {
       console.log(error)

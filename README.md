@@ -64,7 +64,7 @@ We believe in the power of community. Your contributions can help shape the futu
 
 ## License 📜
 
-We're committed to openness. Kobot AI is proudly licensed under the [GNU General Public License v3.0](./LICENSE.md), ensuring it remains a collaborative, community-driven project.
+We're committed to openness. Kobot AI is proudly licensed under the [GNU General Public License v3.0](./LICENSE.MD), ensuring it remains a collaborative, community-driven project.
 
 ## Shoutouts 🙌
 

@@ -71,7 +71,7 @@ Open `http://localhost:3000/chatbot` and monitor the network activity
 
 ---
 
-## Setup and Deployment Guide
+## [How-TO] Setup and Deployment Guide
 
 ### Prerequisites
 
@@ -96,7 +96,7 @@ cd KobotAI
 ```
 
 #### 2. Environment Configuration
-Copy `.env.sample` to `.env` and populate it with credentials. Refer to [how-to.md](./how-to.md) for details.
+Copy `.env.sample` to `.env` and populate it with credentials. Refer to [how-to.md](./docs/how-to.md) for details.
 
 #### 3. Database Setup
 ```bash

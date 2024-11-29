@@ -7,8 +7,6 @@
     <title>My Web Page</title>
 </head>
 <body>
-    <h1>Welcome to My Web Page</h1>
-    <p>This is where your main content goes.</p>
 
 <script>
       const iframe = document.createElement("iframe");
@@ -37,7 +35,7 @@
         let dimensions = JSON.parse(e.data);
         iframe.width = dimensions.width;
         iframe.height = dimensions.height;
-        iframe.contentWindow.postMessage("test-code", "http://localhost:3000/"); // Use a unique identifier instead of domain ID
+        iframe.contentWindow.postMessage("f2dbffff-5703-4760-ab3a-7d94e26befbb", "http://localhost:3000/"); // Use a unique identifier instead of domain ID
       });
 </script>
 </body>

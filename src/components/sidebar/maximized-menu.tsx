@@ -1,5 +1,5 @@
 'use client';
-import { SIDE_BAR_MENU } from '@/constants/menu'
+import { SIDE_BAR_MENU } from '@/data/menu'
 import { LogOut, ChevronLeft } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'

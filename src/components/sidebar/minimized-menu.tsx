@@ -1,5 +1,5 @@
 'use client';
-import { SIDE_BAR_MENU } from '@/constants/menu'
+import { SIDE_BAR_MENU } from '@/data/menu'
 import React from 'react'
 
 import { Menu } from 'lucide-react'

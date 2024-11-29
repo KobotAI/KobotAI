@@ -2,7 +2,7 @@
 import { useConversation } from '@/hooks/conversation/use-conversation'
 import React from 'react'
 import TabsMenu from '../tabs/index'
-import { TABS_MENU } from '@/constants/menu'
+import { TABS_MENU } from '@/data/menu'
 import { TabsContent } from '../ui/tabs'
 import { Loader } from '../loader'
 import ChatCard from './chat-card'

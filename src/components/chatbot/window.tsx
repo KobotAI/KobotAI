@@ -4,7 +4,8 @@ import React, { forwardRef } from 'react'
 import { UseFormRegister } from 'react-hook-form'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import TabsMenu from '../tabs'
-import { BOT_TABS_MENU } from '@/constants/menu'
+import { BOT_TABS_MENU } from '@/data/menu'
+import { helpdesk } from '@/data/helpdesk'
 import { TabsContent } from '../ui/tabs'
 import { Separator } from '../ui/separator'
 import Bubble from './bubble'
@@ -23,16 +24,9 @@ type Props = {
   chats: { role: 'assistant' | 'user'; content: string; link?: string }[]
   onChat: (event: React.FormEvent<HTMLFormElement>) => void
   onResponding: boolean
-  domainName: string
   theme?: string | null
   textColor?: string | null
   help?: boolean
-  helpdesk: {
-    id: string
-    question: string
-    answer: string
-    domainId: string | null
-  }[]
   setChat: React.Dispatch<
     React.SetStateAction<
       {
@@ -55,8 +49,6 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
       chats,
       onChat,
       onResponding,
-      domainName,
-      helpdesk,
       setChat,
       textColor,
       theme,
@@ -94,7 +86,7 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
             </Avatar>
             <div className="flex flex-col leading-tight">
               <h3 className="text-xl font-bold">John Doe</h3>
-              <span className="text-sm opacity-80">{domainName.split('.com')[0]}</span>
+              <span className="text-sm opacity-80">example.com</span>
             </div>
           </div>
           <Button
